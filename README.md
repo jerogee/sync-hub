@@ -1,20 +1,18 @@
 Sync-Hub
 ========
 
-By [@jerogee](https://github.com/jerogee) and [contributors](https://github.com/mail-in-a-box/mailinabox/graphs/contributors).
-
 Sync-Hub helps to keep your files in sync and secure across devices, with an easy-to-deploy server in your control.
 
 * * *
 
 Sync-Hub offers:
 
-* File synchronization across devices using a central server (a hub) in your control
-* Full control over your data, full control over upload/download speed
-* Encryption on devices and on hub, keeping your data safe even if the hub is compromised
+* File synchronization across devices using a central server (a hub) in your full control.
+* Full control over your data, full control over upload/download speed.
+* Encryption on devices and on hub, keeping your data safe even if the hub is compromised.
 * Relies on proven technology, such as [Unison](https://www.cis.upenn.edu/~bcpierce/unison/) for efficient data syncing and [gocryptfs](https://nuetzlich.net/gocryptfs/) (a successor of [EncFS](https://vgough.github.io/encfs/)) for state-of-the-art encryption.
-* Incremental backup of encrypted data, with easy roll-back
-* Support for Linux, Unix, and OSX devices, with a Windows port in development
+* Incremental backup of encrypted data, with easy roll-back.
+* Support for Linux, Unix, and OSX devices, with a Windows port in development.
 
 
 
@@ -42,5 +40,4 @@ by me:
 Begin the installation.
 
 	$ sudo setup/start.sh
-
 
