@@ -1,25 +1,26 @@
-Sync-Hub
+sync-hub
 ========
 
-Sync-Hub helps to keep your files in sync and secure across devices, with an easy-to-deploy server in your control.
+Sync-hub helps to keep your files in sync and secure across devices, with an easy-to-deploy server in your control.
+
+This software is in **pre-alpha**. Please wait using it until it reached at least beta.
 
 * * *
 
-Sync-Hub offers:
+Sync-hub offers:
 
 * File synchronization across devices using a central server (a hub) in your full control.
 * Full control over your data, full control over upload/download speed.
 * Encryption on devices and on hub, keeping your data safe even if the hub is compromised.
 * Relies on proven technology, such as [Unison](https://www.cis.upenn.edu/~bcpierce/unison/) for efficient data syncing and [gocryptfs](https://nuetzlich.net/gocryptfs/) (a successor of [EncFS](https://vgough.github.io/encfs/)) for state-of-the-art encryption.
 * Incremental backup of encrypted data, with easy roll-back.
-* Support for Linux, Unix, and OSX devices, with a Windows port in development.
 
 
 
 The Hub
 -------
 
-Sync-Hub can be deployed in a one-click fashion on a fresh Debian or Ubuntu machine by installing and configuring various components that all focus on doing one job well: supporting sync across devices whilst keeping the data safe and secure.
+Sync-hub can be deployed in a one-click fashion on a fresh Ubuntu machine by installing and configuring various components that all focus on doing one job well: supporting sync across devices whilst keeping the data safe and secure.
 
 
 Installation
