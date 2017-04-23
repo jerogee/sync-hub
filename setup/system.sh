@@ -15,6 +15,10 @@ T_PWD=$(openssl rand -hex 20)
 
 # Add user with generated password
 useradd -m -p $(openssl passwd -1 $T_PWD) -s /bin/bash -d /home/$N_USER -U $N_USER
+if [ ! -d /home/$N_USER ]; then
+    mkdir /home/$N_USER/
+    chown $N_USER:$N_USER /home/$N_USER/
+fi
 
 if [ -d "/vagrant" ]; then
     IP=$(get_default_privateip)

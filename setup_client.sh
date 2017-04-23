@@ -1,5 +1,8 @@
 #!/bin/bash
 
+APPNAME='sync-hub'
+USRNAME='sync'
+
 # Load auxiliary functions
 source setup/functions.sh
 
@@ -86,10 +89,20 @@ echo -n "- Please enter the Hub's IP address: "
 read HUB_IP
 
 # Generate a key
+KEY=$HOME/.ssh/id_rsa_${APPNAME}
+if [ -f $KEY ]; then
+    rm -f $KEY
+fi
 ssh-keygen -t rsa -b 4096 -a 100 -f $HOME/.ssh/id_rsa_${APPNAME} -N '' -q
 
 # Add key to authorized hosts of hub
 echo -n "- Please enter "
-cat $HOME/.ssh/id_rsa_${APPNAME}.pub | ssh -o StrictHostKeyChecking=no sync@$HUB_IP "mkdir ~/.ssh; cat >> ~/.ssh/authorized_keys"
+cat $HOME/.ssh/id_rsa_${APPNAME}.pub | ssh -o StrictHostKeyChecking=no $USRNAME@$HUB_IP "mkdir -p ~/.ssh; cat >> ~/.ssh/authorized_keys"
+
+# Check if passwordless login works
+if [ "$(ssh -q -o 'BatchMode=yes' $USRNAME@$HUB_IP exit)" != "0" ]; then
+    echo "FAILED setting up keybased authentication with Hub."
+    exit 1
+fi
 
 echo "Great, we are done for now!"
