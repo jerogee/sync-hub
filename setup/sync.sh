@@ -18,14 +18,10 @@ if [ ! -f /usr/local/bin/unison ]; then
     cp -v unison /usr/local/bin/
 fi
 
-# Install gocryptfs
-echo "Installing gocryptfs from latest release..."
-echo "- downloading source code"
-apt_install golang libssl-dev
-export GOPATH=~
-go get -d github.com/rfjakob/gocryptfs
-
-echo "- compiling..."
-~/src/github.com/rfjakob/gocryptfs/build.bash
-~/src/github.com/rfjakob/gocryptfs/test.bash -v
-
+# Create encrypted store for current user
+SD=/home/$N_USER/store/
+if [ ! -d $SD ]; then
+    echo "Creating encrypted store for user [$N_USER] in [$SD]..."
+    mkdir $SD
+    chown $N_USER:$N_USER $SD
+fi

@@ -5,20 +5,27 @@ source setup/functions.sh
 
 # Add a sync user
 N_USER='sync'
-#if ! id -u $N_USER > /dev/null 2>&1; then
-    # Generate a random temporary password
-    T_PWD=$(openssl rand -base64 20)
+if id -u $N_USER > /dev/null 2>&1; then
+    userdel $N_USER
+    rm -fr /home/$N_USER/
+fi
 
-    # Add user with generated password
-    useradd -m -p $(openssl passwd -1 $T_PWD) -s /bin/bash $N_USER
+# Generate a random temporary password
+T_PWD=$(openssl rand -hex 20)
 
+# Add user with generated password
+useradd -m -p $(openssl passwd -1 $T_PWD) -s /bin/bash -d /home/$N_USER -U $N_USER
+
+if [ -d "/vagrant" ]; then
+    IP=$(get_default_privateip)
+else
     IP=$(get_publicip_from_web_service 4)
+fi
 
-    echo "Configure clients to sync with SyncHub using:\n\n"
-    echo "- IP address: $IP"
-    echo "- Username  : $N_USER"
-    echo "- Password  : $T_PWD"
-#fi
+echo "Configure clients to sync with SyncHub using:"
+echo "- IP address: $IP"
+echo "- Username  : $N_USER"
+echo "- Password  : $T_PWD"
 
 # Install system packages
 echo Installing system packages...
