@@ -100,9 +100,21 @@ echo -n "- Please enter "
 cat $HOME/.ssh/id_rsa_${APPNAME}.pub | ssh -o StrictHostKeyChecking=no $USRNAME@$HUB_IP "mkdir -p ~/.ssh; cat >> ~/.ssh/authorized_keys"
 
 # Check if passwordless login works
-if [ "$(ssh -q -o 'BatchMode=yes' $USRNAME@$HUB_IP exit)" != "0" ]; then
+ssh -q -o 'BatchMode=yes' $USRNAME@$HUB_IP 'exit'
+if [ "$?" != "0" ]; then
     echo "FAILED setting up keybased authentication with Hub."
     exit 1
 fi
 
-echo "Great, we are done for now!"
+echo "- writing sync-hub configuration..."
+
+# Create a sync-hub data dir
+mkdir -p ${HOME}/.synchub/data/
+chmod -R 700 ${HOME}/.synchub
+
+# Generate a password for mounting gocryptfs
+openssl rand -hex 30 > ${HOME}/.synchub/.passwd
+chmod 400 ${HOME}/.synchub/.passwd
+
+echo "\nReady. Use the following command to create an encrypted directory:\n\n   synchub add <DIRECTORY_NAME>"
+
